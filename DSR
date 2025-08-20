@@ -1,0 +1,23 @@
+import requests
+import json
+
+
+url = "https://app.securiti.ai/privaci/v1/admin/datasources/dsr_licenses_limit"
+headers = {
+    "Authorization": "pk0GL8M6p98NEQX5pWpbl2T4plfMmrKwJH14aHSf",
+    "Content-Type": "application/json"
+}
+
+# Make the GET request
+response = requests.get(url, headers=headers)
+
+# Parse the JSON response and get the licenseCount
+if response.status_code == 200:
+    json_data = response.json()
+    license_count = json_data.get("licenseCount")
+    print(json.dumps({"licenseCount": license_count}, indent=2))
+else:
+    print(json.dumps({
+        "error": "Failed to retrieve data",
+        "status_code": response.status_code
+    }, indent=2))
